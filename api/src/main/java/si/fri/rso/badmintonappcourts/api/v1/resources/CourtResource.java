@@ -5,10 +5,7 @@ import si.fri.rso.badmintonappcourts.services.beans.CourtBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,7 +34,7 @@ public class CourtResource {
         return Response.status(Response.Status.OK).entity(courts).build();
     }
 
-   /*@GET
+    @GET
     @Path("/{courtId}")
     public Response getImageMetadata(@PathParam("courtId") Integer courtId) {
 
@@ -48,8 +45,49 @@ public class CourtResource {
         }
 
         return Response.status(Response.Status.OK).entity(cort).build();
-    }*/
+    }
 
+    @POST
+    public Response createCourt(Court cort) {
 
+        if (cort.getLocation() == null || cort.getNumber() == null ) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        else {
+            cort = courtBean.createCourt(cort);
+        }
+
+        return Response.status(Response.Status.CONFLICT).entity(cort).build();
+
+    }
+
+    @DELETE
+    @Path("{courtId}")
+    public Response deleteCourt(@PathParam("courtId") Integer courtId){
+
+        boolean deleted = courtBean.deleteCourt(courtId);
+
+        if (deleted) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @PUT
+    @Path("{courtId}")
+    public Response putCourt(@PathParam("courtId") Integer courtId,
+                                             Court court){
+
+        court = courtBean.putCourt(courtId, court);
+
+        if (court == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(Response.Status.NOT_MODIFIED).build();
+
+    }
 
 }
