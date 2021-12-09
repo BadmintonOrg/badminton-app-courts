@@ -36,7 +36,7 @@ public class CourtResource {
 
     @GET
     @Path("/{courtId}")
-    public Response getImageMetadata(@PathParam("courtId") Integer courtId) {
+    public Response getCourt(@PathParam("courtId") Integer courtId) {
 
         Court cort = courtBean.getCourt(courtId);
 
