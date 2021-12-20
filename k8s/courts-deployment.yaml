@@ -13,7 +13,7 @@ spec:
         app: courts
     spec:
       containers:
-        - image: jbozic04/badminton-app-courts
+        - image: cesarmarti/badminton-app-courts
           name: courts
           ports:
             - containerPort: 8080
