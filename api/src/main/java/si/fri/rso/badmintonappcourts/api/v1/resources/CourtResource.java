@@ -49,8 +49,10 @@ public class CourtResource {
             )})
     @GET
     public Response getCourts() {
+        log.info("Get all courts.");
         List<Court> courts = courtBean.getCourts(uriInfo);
 
+        log.info("Returning courts:" + courts);
         return Response.status(Response.Status.OK).entity(courts).build();
     }
 
@@ -65,6 +67,8 @@ public class CourtResource {
     @Path("/{courtId}")
     public Response getCourt(@Parameter(description = "Court ID.", required = true)
                                  @PathParam("courtId") Integer courtId) {
+
+        log.info("Get info for court with id " + courtId);
 
         Court cort = courtBean.getCourt(courtId);
 
