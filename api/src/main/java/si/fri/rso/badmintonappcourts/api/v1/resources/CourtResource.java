@@ -1,5 +1,7 @@
 package si.fri.rso.badmintonappcourts.api.v1.resources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.logs.cdi.Log;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -22,10 +24,12 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 
+@Log
 @ApplicationScoped
 @Path("/courts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class CourtResource {
 
     private Logger log = Logger.getLogger(CourtResource.class.getName());
@@ -124,7 +128,7 @@ public class CourtResource {
     @Operation(description = "Update data for a court.", summary = "Update court")
     @APIResponses({
             @APIResponse(
-                    responseCode = "200",
+                    responseCode = "301",
                     description = "Court successfully updated."
             )
     })
@@ -134,8 +138,8 @@ public class CourtResource {
                                  @PathParam("courtId") Integer courtId,
                              @RequestBody(
                                      description = "DTO object with court data.",
-                                     required = true, content = @Content(
-                                     schema = @Schema(implementation = Court.class)))
+                                     required = true,
+                                     content = @Content(schema = @Schema(implementation = Court.class)))
                                      Court court){
 
         court = courtBean.putCourt(courtId, court);

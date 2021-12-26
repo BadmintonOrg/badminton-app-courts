@@ -13,8 +13,8 @@ import javax.ws.rs.core.Application;
 @RegisterService
 @OpenAPIDefinition(info = @Info(title = "Badminton app courts API", version = "v1",
         contact = @Contact(email = "rso@fri.uni-lj.si"),
-        license = @License(name = "dev"), description = "API for Badminton app courts."),
-        servers = @Server(url = "http://20.62.136.0:8080/")) //TO-DO
+        license = @License(name = "dev"), description = "API for Badminton app courts."))
+        //servers = @Server(url = "http://20.62.136.0:8080/")) //TO-DO
 @ApplicationPath("/v1")
 public class BadmintonApplication extends Application {
 

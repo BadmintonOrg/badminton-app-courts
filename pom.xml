@@ -28,6 +28,10 @@
         <kumuluzee-rest.version>1.5.1</kumuluzee-rest.version>
         <kumuluzee-config.version>1.3.0</kumuluzee-config.version>
         <kumuluzee-discovery.version>1.1.1</kumuluzee-discovery.version>
+
+        <kumuluzee-logs.version>1.4.2</kumuluzee-logs.version>
+        <kumuluzee-cors.version>1.0.6</kumuluzee-cors.version>
+
         <postgresql.version>42.3.0</postgresql.version>
     </properties>
 
@@ -82,6 +86,23 @@
                 <groupId>com.kumuluz.ee.openapi</groupId>
                 <artifactId>kumuluzee-openapi-mp-ui</artifactId>
                 <version>${kumuluzee-openapi-mp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.cors</groupId>
+                <artifactId>kumuluzee-cors</artifactId>
+                <version>${kumuluzee-cors.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <artifactId>kumuluzee-logs-common</artifactId>
+                <version>${kumuluzee-logs.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>kumuluzee-logs-log4j2</artifactId>
+                <groupId>com.kumuluz.ee.logs</groupId>
+                <version>${kumuluzee-logs.version}</version>
             </dependency>
 
             <dependency>
