@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 @Path("/courts")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS, PUT")
 public class CourtResource {
 
     private Logger log = Logger.getLogger(CourtResource.class.getName());
@@ -52,7 +52,7 @@ public class CourtResource {
         log.info("Get all courts.");
         List<Court> courts = courtBean.getCourts(uriInfo);
 
-        log.info("Returning courts:" + courts);
+        log.info("Returning courts.");
         return Response.status(Response.Status.OK).entity(courts).build();
     }
 
@@ -73,9 +73,11 @@ public class CourtResource {
         Court cort = courtBean.getCourt(courtId);
 
         if (cort == null) {
+            log.info("No court found.");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        log.info("Returning data for court with id " + courtId);
         return Response.status(Response.Status.OK).entity(cort).build();
     }
 
@@ -92,13 +94,16 @@ public class CourtResource {
             required = true, content = @Content(
             schema = @Schema(implementation = Court.class))) Court cort) {
 
+        log.info("Called method for new court");
         if (cort.getLocation() == null || cort.getNumber() == null ) {
+            log.info("New court not added. Bad request.");
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         else {
             cort = courtBean.createCourt(cort);
         }
 
+        log.info("New court added");
         return Response.status(Response.Status.CONFLICT).entity(cort).build();
 
     }
@@ -119,12 +124,15 @@ public class CourtResource {
     public Response deleteCourt(@Parameter(description = "Court ID.", required = true)
                                     @PathParam("courtId") Integer courtId){
 
+        log.info("Called method to delete court");
         boolean deleted = courtBean.deleteCourt(courtId);
 
         if (deleted) {
+            log.info("Court not deleted. Bad request.");
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         else {
+            log.info("Deleted court with id " + courtId);
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -146,12 +154,15 @@ public class CourtResource {
                                      content = @Content(schema = @Schema(implementation = Court.class)))
                                      Court court){
 
+        log.info("Called method to update court");
         court = courtBean.putCourt(courtId, court);
 
         if (court == null) {
+            log.info("Court not updated. Bad request.");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
+        log.info("Updated court with id " + courtId);
         return Response.status(Response.Status.NOT_MODIFIED).build();
 
     }
