@@ -13,7 +13,7 @@ spec:
         app: courts
     spec:
       containers:
-        - image: cesarmarti/badminton-app-courts
+        - image: cesarmarti/testna-slika
           name: courts
           ports:
             - containerPort: 8080
@@ -26,7 +26,7 @@ kind: Service
 metadata:
   name: courts
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 8080
       protocol: TCP
