@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: courts-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: courts
+  template:
+    metadata:
+      labels:
+        app: courts
+    spec:
+      containers:
+        - image: cesarmarti/testna-slika
+          name: courts
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: courts
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: courts
